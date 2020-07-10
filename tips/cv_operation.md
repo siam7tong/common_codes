@@ -43,7 +43,7 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
     Mat b = a;
 ```
 >注意：当将参数copyData设为true后，则为深拷贝（复制整个图像数据）
-    Mat b = Mat(a, true);
+`Mat b = Mat(a, true);`
 
 4. Mat转CvMat
 >浅拷贝
@@ -94,7 +94,7 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
 	int norm_type = CV_L2,//选择范式标量
 	const CvArr* mask = NULL//矩阵“开关”
 	);
-
+```
 >https://blog.csdn.net/zhurui_idea/article/details/28668677
 5. 矩阵最值操作
    比较两个图像取最大值
@@ -104,7 +104,7 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
     	const CvArr* src2,//图像2
     	CvArr* dst//结果矩阵
     );
-```  
+```
    比较两个图像取最小值
 ```
    void cvMin(
