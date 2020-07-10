@@ -1,0 +1,36 @@
+{
+  "version": "4.2.9",
+  "flags": {
+      "subnode": "yes" 
+  },
+  "shapes": [
+    {
+      "label": "1",
+      "points": [
+        [
+          305.0,
+          833.6666666666667
+        ],
+        [
+          363.33333333333337,
+          195.33333333333334
+        ],
+        [
+          1195.0,
+          275.33333333333337
+        ],
+        [
+          1125.0,
+          927.0
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "polygon",
+      "flags": {}
+    }
+  ],
+  "imagePath": "20200511100352918.jpg",
+  "imageData": "None",
+  "imageHeight": 1080,
+  "imageWidth": 1440
+}
