@@ -10,4 +10,6 @@
 * $ eval `ssh-agent -s`
 * $ ssh-add ~/.ssh/id_rsa
 
+# ssh远程连接
+ssh -X research@192.168.11.117
 
