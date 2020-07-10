@@ -178,52 +178,68 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
 	int flage = 0//标记位
     );
 ```
-11. CvScalar cvTrace(//求矩阵的迹
+11. 求矩阵的迹
+```
+   CvScalar cvTrace(
 	const CvArr* mat//目标矩阵
     );
-
-12. void cvTranspose(//矩阵转置
+```
+12. 矩阵转置
+```
+   void cvTranspose(
     	const CvArr* src,//目标矩阵
     	CvArr* dst//结果矩阵
     );
-
-13. void cvXor(//矩阵进行异或操作
+```
+13. 矩阵进行异或操作
+```
+   void cvXor(
 	const CvArr* src1,//矩阵1
 	const CvArr* src2,//矩阵2
 	CvArr* dst,//结果矩阵
 	const CvArr* mask = NULL//矩阵“开关”
 	);
-   void cvXor(//矩阵与给定值进行异或操作
+```
+   矩阵与给定值进行异或操作
+```
+   void cvXor(
 	const CvArr* src1,//矩阵1
 	CvScalar value//给定值
 	CvArr* dst,//结果矩阵
 	const CvArr* mask = NULL//矩阵“开关”
 	);
-
-14.void cvZero(//将图像所有通道设置为零
+```
+14. 将图像所有通道设置为零
+```
+   void cvZero(
 	CvArr* arr//目标图像
 	);
+```
 
-三、Mat相关操作
-https://www.cnblogs.com/cyrus-ho/p/4156015.html
-
+# 三、Mat相关操作
+>https://www.cnblogs.com/cyrus-ho/p/4156015.html
+```
 cv::Mat a(3,2,CV_8UC1,cv::Scalar(127));
 cv::Mat b(3,2,CV_8UC1,cv::Scalar(128));
+```
+## 修改mask获得指定掩模
+```
 cv::Mat mask(3,2,CV_8UC1,255);//默认全体操作
-...//修改mask获得指定掩模
+```
+## 逻辑运算
+```
 double alpha;
 double beta;
 cv::Mat c;
-cv::add(a,b,c,mask); // a+b 元素级相加,结果放到c，下面的类似
+cv::add(a,b,c,mask); // a+b元素级相加,结果放到c，下面的类似
 cv::scaleAdd(a, alpha, b, c, mask); // a*alpha+b, 元素级相加，其中一个矩阵带缩放
 cv::addWeighted(a, alpha, b beta, c, mask); // a*alpha+b*beta, 元素级相加，两个矩阵分别带缩放系数 （还可以带偏移gamma）
-cv::subtract(a,b,c,mask); // 元素级想减
+cv::subtract(a,b,c,mask); // 元素级相减
 cv::abs(a,c); // 取绝对值
 cv::absdiff(a,b,c); // 元素级相减取绝对值 （个人很好奇为何不是absDiff而是全小写）
 cv::multiply(a,b,c,mask); // 元素级乘法
-cv::divide(a,b,c,mask); // 元素级除法
-//类似的操作还有log，sqrt，exp，pow，min，max
-
+cv::divide(a,b,c,mask); // 元素级除法, 类似的操作还有log，sqrt，exp，pow，min，max
+```
 cv::compare(a,b,c, cv::CMP_GT); // 元素级比较大小，结果存放在c中，条件满足则为255，否则为0，就是说c是一个元素类型CV_8UC1的矩阵
 //条件关系 CMP_GT 大于 --- CMP_GE 大于等于 --- CMP_LT 小于 --- CMP_LE 小于等于 --- CMP_EQ 等于 --- CMP_NE 不等于
 
