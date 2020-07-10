@@ -30,18 +30,18 @@
 * $ sudo systemctl restart docker
 ***
 ## NVIDIA NGC API Key
->有些docker安装时需要nvidia-docker支持，需要登录账号
->网址: https://ngc.nvidia.com/catalog/all
->账号: 1193985497@qq.com
->进入点击头像，选择Generate API Key，得到key，然后命令行操作如下
->>$ docker login nvcr.io
->>Username: $oauthtoken
->>Password: <Your Key>
->>mykey:dmE2bWZ0Y3ZiNzU2cWJmcXJkZjluNmIzZWE6ZTkzMzI5NmItYjAxNS00OTA0LWJiNGYtNWY2OGI4ZDgyODc0
+有些docker安装时需要nvidia-docker支持，需要登录账号  
+>网址: https://ngc.nvidia.com/catalog/all  
+>账号: 1193985497@qq.com  
+进入点击头像，选择Generate API Key，得到key，然后命令行操作如下
+>$ docker login nvcr.io  
+>Username: $oauthtoken  
+>Password: <Your Key>  
+>mykey:dmE2bWZ0Y3ZiNzU2cWJmcXJkZjluNmIzZWE6ZTkzMzI5NmItYjAxNS00OTA0LWJiNGYtNWY2OGI4ZDgyODc0
 ***
 # docker命令
 ## 查看docker版本
-docker --version
+* $ docker --version
 ## 删除容器
 * $ docker rm container_id
 ## 删除镜像
