@@ -1,6 +1,6 @@
-
+```
 vector<char> str={'a', 'b', 'x', 'g', 'c', 'e'};
-
+```
 ## 获取指定元素的索引
 ```
 #include <algorithm> // 包含算法头文件
