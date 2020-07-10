@@ -31,8 +31,8 @@
 ***
 ## NVIDIA NGC API Key
 有些docker安装时需要nvidia-docker支持，需要登录账号  
->网址: https://ngc.nvidia.com/catalog/all  
->账号: 1193985497@qq.com  
+网址: https://ngc.nvidia.com/catalog/all  
+账号: 1193985497@qq.com  
 进入点击头像，选择Generate API Key，得到key，然后命令行操作如下
 >$ docker login nvcr.io  
 >Username: $oauthtoken  
