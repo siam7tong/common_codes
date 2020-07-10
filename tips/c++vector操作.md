@@ -19,3 +19,12 @@ if(it != v.end())
 str.at(2)=str.back();
 str.pop_back()
 ```
+
+## 删除指定位置元素
+```
+str.erase(str.begin()+3);  //删除第四个元素
+str.erase(str.begin(), str.begin()+3); // 删除第1个到第3个元素
+for(int i=0;i<str.size();i++)
+    cout << i  << ":" << vec[i] << ' ';
+
+```
