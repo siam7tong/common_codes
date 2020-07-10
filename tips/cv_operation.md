@@ -1,19 +1,19 @@
 继承关系：CvArr >> CvMat >>IplImage  
 CvMat 是opencv面向c语言的数据结构，Mat是面向c++的数据结构
 # 〇、数据类型
->https://blog.csdn.net/cindywry/article/details/81240510（含操作） 
-`IplImage *src1;`
-`src1 = cvLoadImage("7.jpg");`
-IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像的函数便会只对ROI所表示的子图像进行操作，以下为设定函数。
-`void cvSetImageROI( IplImage* image, CvRect rect );`
-`void cvResetImageROI( IplImage* image );`
+>https://blog.csdn.net/cindywry/article/details/81240510  
+`IplImage *src1;`  
+`src1 = cvLoadImage("7.jpg");`  
+IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像的函数便会只对ROI所表示的子图像进行操作，以下为设定函数。  
+`void cvSetImageROI( IplImage* image, CvRect rect );`  
+`void cvResetImageROI( IplImage* image );`  
 
->CvPoint        int x, y                  图像中的点
->CvPoint2D32f   float x, y                二维空间中的点
->CvPoint3D32f   float x, y, z             三维空间中的点
->CvSize         int width, height         图像的尺寸
->CvRect         int x, y, width, height   图像的部分区域
->CvScalar       double val[4]             RGBA 值
+>CvPoint        int x, y                  图像中的点  
+>CvPoint2D32f   float x, y                二维空间中的点  
+>CvPoint3D32f   float x, y, z             三维空间中的点  
+>CvSize         int width, height         图像的尺寸  
+>CvRect         int x, y, width, height   图像的部分区域  
+>CvScalar       double val[4]             RGBA 值  
 
 # 一、转换关系（CvMat，Mat）
 1. CvMat之间的复制
@@ -86,7 +86,9 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
     	CvArr* dst//结果矩阵
 	);
 ```
-4. double cvNorm(//计算各种范式
+4. 计算各种范式
+```
+   double cvNorm(
 	const CvArr* arr1,//矩阵1
 	const CvArr* arr2 = NULL,//矩阵2
 	int norm_type = CV_L2,//选择范式标量
@@ -94,14 +96,15 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
 	);
 
 >https://blog.csdn.net/zhurui_idea/article/details/28668677
-5. 比较两个图像取最大值
+5. 矩阵最值操作
+   比较两个图像取最大值
 ```
    void cvMax(
     	const CvArr* src1,//图像1
     	const CvArr* src2,//图像2
     	CvArr* dst//结果矩阵
     );
-```
+```  
    比较两个图像取最小值
 ```
    void cvMin(
@@ -110,7 +113,8 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
     	CvArr* dst//结果图像
     );
 ```
-6. 比较图像与给定值取最大值
+6. 矩阵与标量的最值操作
+   比较图像与给定值取最大值
 ```
     void cvMaxS(
     	const CvArr* src1,//图像1
@@ -118,7 +122,7 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
     	CvArr* dst//结果矩阵
     );
 ```
-    比较图像取与给定标量最小值
+   比较图像取与给定标量最小值
 ```
     void cvMinS(
     	const CvArr* src1,//图像1
@@ -191,7 +195,8 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
     	CvArr* dst//结果矩阵
     );
 ```
-13. 矩阵进行异或操作
+13. 异或操作
+矩阵异或操作
 ```
    void cvXor(
 	const CvArr* src1,//矩阵1
@@ -226,7 +231,7 @@ cv::Mat b(3,2,CV_8UC1,cv::Scalar(128));
 ```
 cv::Mat mask(3,2,CV_8UC1,255);//默认全体操作
 ```
-## 逻辑运算
+## 算术运算
 ```
 double alpha;
 double beta;
@@ -240,11 +245,9 @@ cv::absdiff(a,b,c); // 元素级相减取绝对值 （个人很好奇为何不�
 cv::multiply(a,b,c,mask); // 元素级乘法
 cv::divide(a,b,c,mask); // 元素级除法, 类似的操作还有log，sqrt，exp，pow，min，max
 ```
-cv::compare(a,b,c, cv::CMP_GT); // 元素级比较大小，结果存放在c中，条件满足则为255，否则为0，就是说c是一个元素类型CV_8UC1的矩阵
-//条件关系 CMP_GT 大于 --- CMP_GE 大于等于 --- CMP_LT 小于 --- CMP_LE 小于等于 --- CMP_EQ 等于 --- CMP_NE 不等于
-
-//元素级逻辑运算
-cv::bitwise_or(a,b,c,mask);
-//类似的还有bitwise_and等，注意这个不仅仅是元素级，还是位运算，例如a某个元素是128，b对应位置的元素是0，则它们进行bitwise_or的结果，对应位置是128
-//如果b对应位置的元素是1，那么结果对应位置就是129（因为128最后一位是0，和1的最后一位（也就是1）相或后得到1，128的前边的位数都保留了，得到129）
-//同理如果a的元素是129，b对应元素是1，那么结果该位置还是129
+cv::compare(a,b,c, cv::CMP_GT); 
+>元素级比较大小，结果存放在c中，条件满足则为255，否则为0，就是说c是一个元素类型CV_8UC1的矩阵
+>条件关系 CMP_GT 大于 --- CMP_GE 大于等于 --- CMP_LT 小于 --- CMP_LE 小于等于 --- CMP_EQ 等于 --- CMP_NE 不等于
+## 逻辑运算
+`cv::bitwise_or(a,b,c,mask); `// 元素级或运算
+>类似的还有bitwise_and等，注意这个不仅仅是元素级，还是位运算，例如a某个元素是128，b对应位置的元素是0，则它们进行bitwise_or的结果，对应位置是128，如果b对应位置的元素是1，那么结果对应位置就是129（因为128最后一位是0，和1的最后一位（也就是1）相或后得到1，128的前边的位数都保留了，得到129），同理如果a的元素是129，b对应元素是1，那么结果该位置还是129
