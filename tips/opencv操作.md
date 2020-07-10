@@ -1,13 +1,16 @@
 继承关系：CvArr >> CvMat >>IplImage  
 CvMat 是opencv面向c语言的数据结构，Mat是面向c++的数据结构
 # 〇、数据类型
->https://blog.csdn.net/cindywry/article/details/81240510  
-`IplImage *src1;`  
-`src1 = cvLoadImage("7.jpg");`  
-IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像的函数便会只对ROI所表示的子图像进行操作，以下为设定函数。  
-`void cvSetImageROI( IplImage* image, CvRect rect );`  
-`void cvResetImageROI( IplImage* image );`  
-
+>https://blog.csdn.net/cindywry/article/details/81240510
+```
+IplImage *src1;
+src1 = cvLoadImage("7.jpg");
+```
+>IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像的函数便会只对ROI所表示的子图像进行操作，以下为设定函数。
+```
+void cvSetImageROI( IplImage* image, CvRect rect );
+void cvResetImageROI( IplImage* image );
+```
 >CvPoint        int x, y                  图像中的点  
 >CvPoint2D32f   float x, y                二维空间中的点  
 >CvPoint3D32f   float x, y, z             三维空间中的点  
