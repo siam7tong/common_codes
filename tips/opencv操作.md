@@ -43,7 +43,7 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
     Mat b = a;
 ```
 >注意：当将参数copyData设为true后，则为深拷贝（复制整个图像数据）
-    Mat b = Mat(a, true);
+`Mat b = Mat(a, true);`
 
 4. Mat转CvMat
 >浅拷贝
@@ -94,9 +94,9 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
 	int norm_type = CV_L2,//选择范式标量
 	const CvArr* mask = NULL//矩阵“开关”
 	);
-
+```
 >https://blog.csdn.net/zhurui_idea/article/details/28668677
-5. 矩阵最值操作
+5. 矩阵最值操作  
    比较两个图像取最大值
 ```
    void cvMax(
@@ -104,7 +104,7 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
     	const CvArr* src2,//图像2
     	CvArr* dst//结果矩阵
     );
-```  
+```
    比较两个图像取最小值
 ```
    void cvMin(
@@ -113,7 +113,7 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
     	CvArr* dst//结果图像
     );
 ```
-6. 矩阵与标量的最值操作
+6. 矩阵与标量的最值操作  
    比较图像与给定值取最大值
 ```
     void cvMaxS(
@@ -195,7 +195,7 @@ IplImage中ROI参数的思想是：一旦设定ROI，通常作用于整幅图像
     	CvArr* dst//结果矩阵
     );
 ```
-13. 异或操作
+13. 异或操作  
 矩阵异或操作
 ```
    void cvXor(
@@ -251,3 +251,33 @@ cv::compare(a,b,c, cv::CMP_GT);
 ## 逻辑运算
 `cv::bitwise_or(a,b,c,mask); `// 元素级或运算
 >类似的还有bitwise_and等，注意这个不仅仅是元素级，还是位运算，例如a某个元素是128，b对应位置的元素是0，则它们进行bitwise_or的结果，对应位置是128，如果b对应位置的元素是1，那么结果对应位置就是129（因为128最后一位是0，和1的最后一位（也就是1）相或后得到1，128的前边的位数都保留了，得到129），同理如果a的元素是129，b对应元素是1，那么结果该位置还是129
+
+# 五、四维张量的创建及索引
+>注意四维张量的元素类型，step意味着跳过多少个字节去找该元素，float32占4个字节，所以最后一维step[3]=4， 而第三维step[2]=4*C,说明需要跳过第四维的元素数索引到第三维的下一个元素，step[1]=4*C*W, step[0]=4*C*H。
+```
+int sizes[] = {1, INPUT_H, INPUT_W, 3};  #NHWC
+Mat input(4, sizes, CV_32F, frame.data);
+
+for(int h=0; h<2; h++){
+    for(int w=0; w<2; w++){
+        for(int c=0; c<3; c++){
+            float *p = (float *) input.data+h*input.step[1]+
+                           w*input.step[2]+c*input.step[3];
+            cout << "p:" << *p << endl;
+        }
+    }
+}
+```  
+# 六、图片索引
+>注意由图片读入的Mat，查看其step[2]为无效值，好像opencv对这类Mat默认了其step[2]，也就是通道维的step。
+```
+Mat frame=cv::Imread("*.jpg");
+for(int h=0; h<frame.rows; h++){
+    for(int w=0; w<frame.cols; w++){
+        uchar B=frame.at<Vec3b>(h, w)[0];
+        uchar G=frame.at<Vec3b>(h, w)[1];
+        uchar R=frame.at<Vec3b>(h, w)[2];
+        // float P=frame.at<Vec3f>(h, w)[0]; // 如果Mat为 CV_32FC3类型
+    }
+}
+```
