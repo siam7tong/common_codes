@@ -21,43 +21,49 @@ void cvResetImageROI( IplImage* image );
 # 一、转换关系（CvMat，Mat）
 1. CvMat之间的复制
 >深拷贝 - 单独分配空间，两者相互独立
-```CvMat* a;
-   CvMat* b = cvCloneMat(a);
+```
+CvMat* a;
+CvMat* b = cvCloneMat(a);
 ```
 
 2. Mat之间的复制
 >浅拷贝，不复制数据只创建矩阵头，数据共享（更改a,b,c的任意一个都会对另外2个产生同样的作用） 
-```Mat a;
-   Mat b = a;
-   Mat c(a);
+```
+Mat a;
+Mat b = a;
+Mat c(a);
 ```
 >深拷贝
-``` Mat a;
-    Mat b = a.clone();
-    Mat c;
-    a.copyTo(c); 
+``` 
+Mat a;
+Mat b = a.clone();
+Mat c;
+a.copyTo(c); 
 ```
 3. CvMat转Mat
->使用Mat的构造函数：Mat::Mat(const CvMat* m, bool copyData=false); 默认情况下copyData为false 
+>使用Mat的构造函数：Mat::Mat(const CvMat* m, bool copyData=false)，默认情况下copyData为false 
     CvMat* a;
 >注意：以下三种效果一致，均为浅拷贝
-``` Mat b(a);
-    Mat b(a, false);
-    Mat b = a;
+``` 
+Mat b(a);
+Mat b(a, false);
+Mat b = a;
 ```
->注意：当将参数copyData设为true后，则为深拷贝（复制整个图像数据）
+>注意：当将参数copyData设为true后，则为深拷贝（复制整个图像数据）  
 `Mat b = Mat(a, true);`
 
 4. Mat转CvMat
 >浅拷贝
-``` Mat a;
-    CvMat b = a;
+``` 
+Mat a;
+CvMat b = a;
 ```
 >深拷贝
-``` Mat a;
-    CvMat *b; 
-    CvMat temp = a; //转化为CvMat类型，而不是复制数据 
-    cvCopy(&temp, b); //真正复制数据 
+``` 
+Mat a;
+CvMat *b; 
+CvMat temp = a; //转化为CvMat类型，而不是复制数据 
+cvCopy(&temp, b); //真正复制数据 
 ```
 
 # 二、矩阵和图像操作(CvMat)
@@ -107,7 +113,7 @@ void cvResetImageROI( IplImage* image );
     	const CvArr* src2,//图像2
     	CvArr* dst//结果矩阵
     );
-```
+```  
    比较两个图像取最小值
 ```
    void cvMin(
@@ -124,7 +130,7 @@ void cvResetImageROI( IplImage* image );
     	double value,//给定值
     	CvArr* dst//结果矩阵
     );
-```
+```  
    比较图像取与给定标量最小值
 ```
     void cvMinS(
@@ -133,7 +139,7 @@ void cvResetImageROI( IplImage* image );
     	CvArr* dst//结果图像
     );
 ```
-7. 分离和合并通道(cvSplit  cvMerge)
+7. 分离和合并通道(cvSplit、cvMerge)
 ```
     int main(int argc, char** argv)
     {
@@ -248,10 +254,11 @@ cv::absdiff(a,b,c); // 元素级相减取绝对值 （个人很好奇为何不�
 cv::multiply(a,b,c,mask); // 元素级乘法
 cv::divide(a,b,c,mask); // 元素级除法, 类似的操作还有log，sqrt，exp，pow，min，max
 ```
-cv::compare(a,b,c, cv::CMP_GT); 
+
+## 逻辑运算
 >元素级比较大小，结果存放在c中，条件满足则为255，否则为0，就是说c是一个元素类型CV_8UC1的矩阵
 >条件关系 CMP_GT 大于 --- CMP_GE 大于等于 --- CMP_LT 小于 --- CMP_LE 小于等于 --- CMP_EQ 等于 --- CMP_NE 不等于
-## 逻辑运算
+`cv::compare(a,b,c, cv::CMP_GT);`
 `cv::bitwise_or(a,b,c,mask); `// 元素级或运算
 >类似的还有bitwise_and等，注意这个不仅仅是元素级，还是位运算，例如a某个元素是128，b对应位置的元素是0，则它们进行bitwise_or的结果，对应位置是128，如果b对应位置的元素是1，那么结果对应位置就是129（因为128最后一位是0，和1的最后一位（也就是1）相或后得到1，128的前边的位数都保留了，得到129），同理如果a的元素是129，b对应元素是1，那么结果该位置还是129
 
